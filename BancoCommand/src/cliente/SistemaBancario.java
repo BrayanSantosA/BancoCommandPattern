@@ -1,4 +1,3 @@
-
 package cliente;
 
 import command.*;
@@ -7,10 +6,16 @@ import receiver.CuentaBancaria;
 
 public class SistemaBancario {
     public static void main(String[] args) {
+
         CuentaBancaria cuentaA = new CuentaBancaria(1000);
         CuentaBancaria cuentaB = new CuentaBancaria(500);
 
         CajeroAutomatico cajero = new CajeroAutomatico();
+
+        System.out.println("Saldos iniciales:");
+        System.out.println("Cuenta A: $" + cuentaA.consultarSaldo());
+        System.out.println("Cuenta B: $" + cuentaB.consultarSaldo());
+
 
         cajero.agregarComando(
             new DepositarCommand(cuentaA, 200)
@@ -24,14 +29,12 @@ public class SistemaBancario {
             new TransferirCommand(cuentaA, cuentaB, 300)
         );
 
-        cajero.agregarComando(
-            new ConsultarSaldoCommand(cuentaA)
-        );
-
-        cajero.agregarComando(
-            new ConsultarSaldoCommand(cuentaB)
-        );
 
         cajero.ejecutarComandos();
+
+        System.out.println("\nSaldos finales: ");
+        System.out.println("Cuenta A: $" + cuentaA.consultarSaldo());
+        System.out.println("Cuenta B: $" + cuentaB.consultarSaldo());
     }
 }
+
